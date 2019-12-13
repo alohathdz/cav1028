@@ -28,10 +28,13 @@ if (!$_SESSION["UserID"]) {
       <nav class="navbar fixed-top navbar-light bg-light">
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link active" href="#">รายชื่อกำลังพล</a>
+            <a class="nav-link active" href="#">แก้ไขรายชื่อกำลังพล</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">ทำเนียบหน่วย</a>
+            <a class="nav-link" href="PersonalList.php">ดูรายชื่อกำลังพล</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="position.php">ทำเนียบหน่วย</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

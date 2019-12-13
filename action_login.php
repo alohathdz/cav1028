@@ -14,6 +14,7 @@ if(isset($_POST['Username'])) {
         $_SESSION["UserID"] = $row["eid"];
         $_SESSION["User"] = $row["e_firstname"]." ".$row["e_lastname"];
         $_SESSION["UserLevel"] = $row["e_level"];
+        $_SESSION["Photo"] = "photos/".$row["eid"].".jpg";
 
         // เช็ค Admin
         if($_SESSION["UserLevel"]=="admin") {
