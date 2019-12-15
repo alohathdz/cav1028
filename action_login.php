@@ -18,7 +18,7 @@ if(isset($_POST['Username'])) {
 
         // เช็ค Admin
         if($_SESSION["UserLevel"]=="admin") {
-            header("location: PersonalEdit.php");
+            header("location: 1.php");
         }
         if($_SESSION["UserLevel"]=="user") {
             header("location: PersonalList.php");
