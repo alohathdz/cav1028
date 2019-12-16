@@ -71,7 +71,7 @@
       <td colspan="2" align="center" valign="top"><a href="emp_form.php?eid=<?php echo($eid);?>">Edit</a> <a href="javascript:removedata();">Remove</a></td>
     </tr>
     <tr>
-      <td colspan="2" align="center" valign="top"><a href="javascript:window.history.back();">Back</a> <a href="emp_list.php">Home</a></td>
+      <td colspan="2" align="center" valign="top"><a href="javascript:window.history.back();">Back</a> <a href="1.php">Home</a></td>
     </tr>
   </tbody>
 </table>

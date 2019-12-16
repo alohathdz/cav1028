@@ -83,7 +83,7 @@
               <select name="pid" id="pid">
                 <option value="null">โปรดเลือกตำแหน่งของท่าน</option>
 				  <?php
-				  $pst=$con->prepare("SELECT * FROM position ORDER BY pid ASC");
+				  $pst=$con->prepare("SELECT * FROM db_position ORDER BY pid ASC");
 				  $pst->execute();
 				  while($rsPst = $pst->fetch()){
 					  ?>

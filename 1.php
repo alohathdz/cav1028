@@ -18,34 +18,7 @@ if (!$_SESSION["UserLevel"]) {
 
   <body>
 
-    <!-- Navbar >
-<nav class="navbar navbar-expand-lg fix-top navbar-dark bg-dark">
-<img src="photos/logo.png" width="30" height="30" alt="">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">หน้าหลัก <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">ทำเนียบกองพัน</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <img src="</?php echo $_SESSION["Photo"]; ?>" class="rounded-circle" width="30" height="30" alt="">
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">ข้อมูลส่วนตัว</a>
-          <a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">ออกจากระบบ</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav -->
-
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <img src="photos/logo.png" width="30" height="30" alt="">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,10 +34,10 @@ if (!$_SESSION["UserLevel"]) {
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
+              Admin
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="http://localhost/phpmyadmin/">MySQL</a>
               <a class="dropdown-item" href="#">Another action</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
@@ -77,10 +50,10 @@ if (!$_SESSION["UserLevel"]) {
               <img src="<?php echo $_SESSION["Photo"]; ?>" class="rounded-circle" width="30" height="30" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">ข้อมูลส่วนตัว</a>
+              <a class="dropdown-item" href="emp_detail.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
               <a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">ออกจากระบบ</a>
+              <a class="dropdown-item" href="logout.php">ออกจากระบบ</a>
             </div>
           </li>
         </ul>
@@ -97,19 +70,47 @@ if (!$_SESSION["UserLevel"]) {
 
     <!-- Card -->
     <div class="card text-center">
-      <div class="card-header">
-        ข้อมูลส่วนบุคคล
-      </div>
       <div class="card-body">
         <h5 class="card-title"><?php echo $_SESSION["User"]; ?></h5>
-        <img src="photos/null.jpg" class="img-thumbnail" width="200" height="200" alt="">
-        <p class="card-text">เลขประจำตัวประชาชน</p>
-        <p class="card-text">เลขประจำตัวข้าราชการ</p>
-        <p class="card-text">ตำแหน่ง</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-      <div class="card-footer text-muted">
-        2 days ago
+        <img src="photos/001.jpg" class="img-thumbnail" width="200" height="200" alt="">
+        <br><br>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="fullname">ยศ ชื่อ - สกุล</label>
+              <input type="text" class="form-control text-center" id="fullname" placeholder="<?php echo $_SESSION["UserRank"]." ".$_SESSION["User"]; ?>" readonly>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="firstname">หมายเลขประจำตัวประชาชน</label>
+              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserID"]; ?>" readonly>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="firstname">หมายเลขข้าราชการ</label>
+              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserIDarmy"]; ?>" readonly>
+            </div>
+            <div class="form-group col-md-1">
+              <label for="firstname">เหล่า</label>
+              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserCorps"]; ?>" readonly>
+            </div>
+            <div class="form-group col-md-1">
+              <label for="firstname">กำเนิด</label>
+              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserOrigin"]; ?>" readonly>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="firstname">วันเกิด</label>
+              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserBirthday"]; ?>" readonly>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="firstname">เงินเดือน</label>
+              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserSalary"]; ?>" readonly>
+            </div>
+            <div class="form-group col-md-10">
+              <label for="firstname">ตำแหน่ง</label>
+              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserPosition"]; ?>" readonly>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">แก้ไข</button>
+        </form>
       </div>
     </div>
 
