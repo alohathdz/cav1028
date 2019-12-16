@@ -72,7 +72,7 @@ if (!$_SESSION["UserLevel"]) {
     <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title"><?php echo $_SESSION["User"]; ?></h5>
-        <img src="photos/001.jpg" class="img-thumbnail" width="200" height="200" alt="">
+        <img src="<?php echo $_SESSION["Photos"]; ?>" class="img-thumbnail" width="200" height="200" alt="">
         <br><br>
         <form>
           <div class="form-row">
