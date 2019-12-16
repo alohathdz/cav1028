@@ -71,8 +71,8 @@ if (!$_SESSION["UserLevel"]) {
     <!-- Card -->
     <div class="card text-center">
       <div class="card-body">
-        <h5 class="card-title"><?php echo $_SESSION["User"]; ?></h5>
-        <img src="<?php echo $_SESSION["Photos"]; ?>" class="img-thumbnail" width="200" height="200" alt="">
+        <h5 class="card-title">ข้อมูลส่วนบุคคล</h5>
+        <img src="<?php echo $_SESSION["Photo"]; ?>" class="img-thumbnail" width="200" height="200" alt="">
         <br><br>
         <form>
           <div class="form-row">
@@ -109,7 +109,7 @@ if (!$_SESSION["UserLevel"]) {
               <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserPosition"]; ?>" readonly>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">แก้ไข</button>
+          <a href="emp_form.php?eid=<?php echo $_SESSION["UserID"]; ?>" class="btn btn-primary">Edit</a>
         </form>
       </div>
     </div>

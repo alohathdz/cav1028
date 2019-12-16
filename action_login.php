@@ -26,13 +26,16 @@ if(isset($_POST['Username'])) {
 
         // เช็ค Admin
         if($_SESSION["UserLevel"]=="admin") {
-            header("location: 1.php");
+            header("location: index.php");
         }
         if($_SESSION["UserLevel"]=="user") {
-            header("location: PersonalList.php");
+            header("location: index.php");
         }
     } else {
-        echo "<script>alert('User หรือ Password ไม่ถูกต้อง');</script>";
+        echo "<script>
+        alert('User หรือ Password ไม่ถูกต้อง');
+        window.location.replace('login.php');
+        </script>";
     }
 } else {
     header("location: login.php");
