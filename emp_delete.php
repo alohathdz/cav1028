@@ -1,4 +1,3 @@
-<?php require("mysql/config.php");?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
@@ -26,7 +25,7 @@
 	var v1 = <?php echo($v1);?>;
 		if (v1==1) {
 			alert("ลบข้อมูลเรียบร้อย");
-			window.location.replace("emp_list.php");
+			window.location.replace("index.php");
 		} else {
 			alert("ลบข้อมูลล้มเหลว กรุณาทำรายการใหม่");
 			window.history.back();

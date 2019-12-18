@@ -3,7 +3,7 @@ session_start();
 if (!$_SESSION["UserLevel"]) {
   header("location: login.php");
 } else {
-  ?>
+?>
   <!DOCTYPE html>
   <html lang="en">
 
@@ -26,11 +26,8 @@ if (!$_SESSION["UserLevel"]) {
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.php">หน้าหลัก <span class="sr-only">(current)</span></a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="list.php">รายชื่อกำลังพล</a>
+            <a class="nav-link" href="index.php">หน้าหลัก <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">ทำเนียบกองพัน</a>
@@ -53,7 +50,7 @@ if (!$_SESSION["UserLevel"]) {
               <img src="<?php echo $_SESSION["Photo"]; ?>" class="rounded-circle" width="30" height="30" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="profile.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
+              <a class="dropdown-item" href="emp_detail.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
               <a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="logout.php">ออกจากระบบ</a>
@@ -63,64 +60,72 @@ if (!$_SESSION["UserLevel"]) {
       </div>
     </nav>
 
-    <!-- Jumbotron -->
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">ยินดีต้อนรับ</h1>
-        <p class="lead"><?php echo $_SESSION["User"]; ?></p>
-      </div>
-    </div>
+    <!-- เรียกฐานข้อมูล -->
+    <?php
+                                                                $eid = $_GET['eid'];
+                                                                require 'action_detail.php';
+                                                                $ephoto = "photos/" . $eid . ".jpg"; /* รูปภาพ */
+    ?>
 
     <!-- Card -->
     <div class="card text-center">
       <div class="card-body">
-        <h5 class="card-title">ข้อมูลส่วนบุคคล</h5>
-        <img src="<?php echo $_SESSION["Photo"]; ?>" class="img-thumbnail" width="200" height="200" alt="">
+        <img src="<?php echo $ephoto; ?>" class="img-thumbnail" width="200" height="200" alt="">
         <br><br>
         <form>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="fullname">ยศ ชื่อ - สกุล</label>
-              <input type="text" class="form-control text-center" id="fullname" placeholder="<?php echo $_SESSION["UserRank"]." ".$_SESSION["User"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="fullname" placeholder="<?php echo $rank . " " . $firstname . " " . $lastname; ?>" readonly>
             </div>
             <div class="form-group col-md-2">
               <label for="firstname">หมายเลขประจำตัวประชาชน</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserID"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="eid" placeholder="<?php echo $eid; ?>" readonly>
             </div>
             <div class="form-group col-md-2">
               <label for="firstname">หมายเลขข้าราชการ</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserIDarmy"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="idarmy" placeholder="<?php echo $idarmy; ?>" readonly>
             </div>
             <div class="form-group col-md-1">
               <label for="firstname">เหล่า</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserCorps"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="corps" placeholder="<?php echo $corps; ?>" readonly>
             </div>
             <div class="form-group col-md-1">
               <label for="firstname">กำเนิด</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserOrigin"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="origin" placeholder="<?php echo $origin; ?>" readonly>
             </div>
             <div class="form-group col-md-2">
               <label for="firstname">วันเกิด</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserBirthday"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="birthday" placeholder="<?php echo $birthday; ?>" readonly>
             </div>
             <div class="form-group col-md-2">
               <label for="firstname">เงินเดือน</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserSalary"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="salary" placeholder="<?php echo $salary; ?>" readonly>
             </div>
             <div class="form-group col-md-10">
               <label for="firstname">ตำแหน่ง</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserPosition"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="position" placeholder="<?php echo $position; ?>" readonly>
             </div>
           </div>
-          <a href="emp_form.php?eid=<?php echo $_SESSION["UserID"]; ?>" class="btn btn-primary">Edit</a>
+          <a href="emp_form.php?eid=<?php echo $eid; ?>" class="btn btn-primary">Edit</a>
+          <a href="javascript:removedata();" class="btn btn-danger">Remove</a>
         </form>
       </div>
     </div>
 
+    <!-- Node JS -->
     <script src="node_modules\jquery\dist\jquery.min.js"></script>
     <script src="node_modules\popper.js\dist\popper.min.js"></script>
     <script src="node_modules\bootstrap\dist\js\bootstrap.min.js"></script>
 
+    <!-- remove -->
+    <script language="javascript">
+      function removedata() {
+        if (confirm("ยืนยันการลบข้อมูล") == true) {
+          window.location.href = "emp_delete.php?eid=<?php echo ($eid); ?>";
+        }
+      }
+    </script>
 
   </body>
 
