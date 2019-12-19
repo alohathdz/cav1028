@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!$_SESSION["UserLevel"]) {
+if ($_SESSION["UserLevel"] != "admin") {
   header("location: login.php");
 } else {
 ?>
@@ -29,11 +29,11 @@ if (!$_SESSION["UserLevel"]) {
           <li class="nav-item">
             <a class="nav-link" href="index.php">หน้าหลัก <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="list.php">รายชื่อกำลังพล</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">ทำเนียบกองพัน</a>
+            <a class="nav-link active" href="#">ทำเนียบกองพัน</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,7 +53,7 @@ if (!$_SESSION["UserLevel"]) {
               <img src="<?php echo $_SESSION["Photo"]; ?>" class="rounded-circle" width="30" height="30" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="emp_detail.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
+              <a class="dropdown-item" href="profile.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
               <a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="logout.php">ออกจากระบบ</a>
@@ -63,71 +63,71 @@ if (!$_SESSION["UserLevel"]) {
       </div>
     </nav>
 
-    <!-- เชื่อมฐานข้อมูล -->
+    <!-- เชื่อมต่อฐานข้อมูล -->
     <?php
-                                                                require 'mysql/connect.php';
-                                                                $result = $con->prepare("SELECT em.*,db_po.p_aname,ra.r_aname,salary.s_name FROM employee em left join db_position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) LEFT JOIN salary ON(em.e_salary = salary.s_name) ORDER BY em.e_rank ASC");
-                                                                $result->execute();
+    require('mysql/connect.php');
+    require 'function.php';
+    $result = $con->prepare("SELECT * FROM db_position left join employee ON(db_position.p_eid = employee.eid) left join rank ON(employee.e_rank = rank.rid) ORDER BY db_position.pid ASC");
+    $result->execute();
     ?>
 
-    <!-- Table -->
+    <!-- Table ตำแหน่ง -->
     <br><br>
     <div class="container">
-      <h1 class="text-center">รายชื่อกำลังพล</h1><br>
+      <h1 class="text-center">ทำเนียบกองพัน</h1><br>
       <table class="table table-bordered" id="edit_table">
         <thead>
           <tr class="text-center">
             <th>ลำดับ</th>
-            <th>ยศ</th>
-            <th>ชื่อ</th>
-            <th>สกุล</th>
-            <th>หมายเลขประจำตัวประชาชน</th>
-            <th>หมายเลขข้าราชการ</th>
-            <th>Menu</th>
+            <th>ตำแหน่ง</th>
+            <th>ชกท.</th>
+            <th>อัตรา</th>
+            <th>เหล่า</th>
+            <th>ยศ ชื่อ นามสกุล<br>หมายเลขบัตรประชาชน</th>
+            <th>เพิ่ม/ลบ</th>
           </tr>
         </thead>
         <tbody>
+
+          <!-- วน loop ตำแหน่ง -->
           <?php
-                                                                require 'function.php';
-                                                                $i = 0;
-                                                                while ($record = $result->fetch(PDO::FETCH_ASSOC)) {
-                                                                  $i++;
-                                                                  echo '<tr>
-                <td class="text-center">' . $i . '</td>
-                <td class="text-center">' . $record['r_aname'] . '</td>
-                <td>' . $record['e_firstname'] . '</td>
-                <td>' . $record['e_lastname'] . '</td>
-                <td class="text-center">' . FnID($record['eid']) . '</td>
-                <td class="text-center">' . $record['e_idarmy'] . '</td>
-                <td class="text-center">
-                <a href="profile.php?eid=' . $record['eid'] . '" class="btn btn-primary btn-sm">View</a>';
-
-                if ($_SESSION["UserLevel"]=="admin") {
-                echo '
-                <a href="edit.php?eid=' . $record['eid'] . '" class="btn btn-secondary btn-sm">Edit</a>
-                <a href="javascript:removedata(' . $record['eid'] . ')" class="btn btn-danger btn-sm">Delete</a>  
-                </td>';
-              }
-
-                echo '</tr>';
-                                                                } ?>
+          $i = 0;
+          while ($record = $result->fetch(PDO::FETCH_ASSOC)) {
+            $i++;
+            if ($record['p_status'] == "ปิด") {
+              echo '<tr>
+<td bgcolor="#e0e0eb" class="text-center">' . $i . '</td>
+<td bgcolor="#e0e0eb" width="35%">' . $record['p_aname'] . "<br>( " . $record['p_fname'] . " )<br>" . $record['pid'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $record['p_expert'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $record['p_rate'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $record['p_corps'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $record['r_aname'] . " " . $record['e_firstname'] . " " . $record['e_lastname'] . "<br>" . $record['e_idarmy'] . "<br>" . FnID($record['p_eid']) . '</td>
+<td bgcolor="#e0e0eb" class="text-center">เพิ่ม / ลบ</td>
+</tr>';
+            } else {
+              echo '<tr>
+<td class="text-center">' . $i . '</td>
+<td width="35%">' . $record['p_aname'] . "<br>( " . $record['p_fname'] . " )<br>" . $record['pid'] . '</td>
+<td class="text-center">' . $record['p_expert'] . '</td>
+<td class="text-center">' . $record['p_rate'] . '</td>
+<td class="text-center">' . $record['p_corps'] . '</td>
+<td class="text-center">' . $record['r_aname'] . " " . $record['e_firstname'] . " " . $record['e_lastname'] . "<br>" . $record['e_idarmy'] . "<br>" . FnID($record['p_eid']) . '</td>
+<td class="text-center">
+<a href="#" class="btn btn-primary btn-sm">เพิ่ม</a>
+<a href="#" class="btn btn-danger btn-sm">ลบ</a>
+</td>
+</tr>';
+            }
+          } ?>
         </tbody>
       </table>
     </div>
 
-    <!-- Node JS -->
+
     <script src="node_modules\jquery\dist\jquery.min.js"></script>
     <script src="node_modules\popper.js\dist\popper.min.js"></script>
     <script src="node_modules\bootstrap\dist\js\bootstrap.min.js"></script>
 
-    <!-- Script Delete -->
-    <script language="javascript">
-      function removedata(eid) {
-        if (confirm("ยืนยันการลบข้อมูล") == true) {
-          window.location.href = "emp_delete.php?eid=" + eid;
-        }
-      }
-    </script>
 
   </body>
 

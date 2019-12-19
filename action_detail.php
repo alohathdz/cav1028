@@ -12,7 +12,9 @@ $corps=$record['e_corps']; /* เหล่า */
 $origin=$record['e_origin']; // กำเนิด
 $birthday=$record['birthday']; // วันเกิด
 $position=$record['p_fname']; /* ตำแหน่ง */
-$salary=$record["s_name"]." ( ".$record["s_money"]." )"; // เงินเดือน
+$pid=$record['e_pid']; // เลขตำแหน่ง
+$salary=$record['s_name']." ( ".$record['s_money']." )"; // เงินเดือน
+$sid=$record['e_salary']; // id เงินเดือน
 $ephoto="photos/".$eid.".jpg"; /* รูปภาพ */
 require("mysql/uncon.php");
 ?>
