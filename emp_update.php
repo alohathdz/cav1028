@@ -38,7 +38,7 @@
 	require("mysql/uncon.php");
 	?>
 	<script language="javascript">
-	var v1 = <?php echo($v1);?>;
+	var v1 = <?php echo $v1; ?>;
 		if (v1==1) {
 			alert("แก้ไขข้อมูลเรียบร้อย");
 			window.location.replace("emp_detail.php?eid=<?php echo($eid);?>");

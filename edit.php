@@ -71,23 +71,51 @@ if (!$_SESSION["UserLevel"]) {
 
       <!-- Card -->
       <?php require 'mysql/connect.php' ?>
-      <div class="card text-center">
-        <div class="card-body">
+      <div class="card">
+        <div class="card-body text-center">
           <img src="<?php echo $ephoto; ?>" class="img-thumbnail" width="200" height="200" alt="">
-          <br><br>
-          <form>
+          <form action="action_update.php" method="POST" enctype="multipart/form-data" onSubmit="return checkForm();">
+            <div class="custom-file col-md-3 my-3">
+              <input type="file" class="custom-file-input" id="ephoto" name="ephoto">
+              <label class="custom-file-label text-left" for="ephoto">เลือกรูปโปรไฟล์</label>
+            </div>
+            <input name="oid" type="hidden" id="oid" value="<?php echo $eid; ?>">
             <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="fullname">ยศ ชื่อ - สกุล</label>
-                <input type="text" class="form-control text-center" id="fullname" placeholder="<?php echo $rank . " " . $firstname . " " . $lastname; ?>">
+              <div class="form-group col-md-1">
+                <label for="rank">ยศ</label>
+                <select id="rank" name="rank" class="form-control">
+                  <option selected>เลือกยศ</option>
+                  <!-- ดึงข้อมูลตำแหน่ง -->
+                  <?php
+                  $result = $con->prepare("SELECT * FROM rank ORDER BY rid ASC");
+                  $result->execute();
+
+                  while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                  ?>
+                    <option value="<?php echo $row['rid']; ?>" <?php if ($rid == $row['rid']) {
+                                                                  echo "selected";
+                                                                } ?>>
+                      <?php echo ($row['r_aname']); ?>
+                    </option>
+                  <?php }
+                  ?>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="firstname">ชื่อ</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo $firstname ?>">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="lastname">นามสกุล</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $lastname ?>">
               </div>
               <div class="form-group col-md-2">
                 <label for="eid">หมายเลขประจำตัวประชาชน</label>
-                <input type="text" class="form-control text-center" id="eid" placeholder="<?php echo $eid; ?>">
+                <input type="text" class="form-control text-center" id="eid" name="eid" value="<?php echo $eid; ?>">
               </div>
               <div class="form-group col-md-2">
                 <label for="idarmy">หมายเลขข้าราชการ</label>
-                <input type="text" class="form-control text-center" id="idarmy" placeholder="<?php echo $idarmy; ?>">
+                <input type="text" class="form-control text-center" id="idarmy" name="idarmy" value="<?php echo $idarmy; ?>">
               </div>
               <div class="form-group col-md-1">
                 <label for="corps">เหล่า</label>
@@ -128,7 +156,7 @@ if (!$_SESSION["UserLevel"]) {
               </div>
               <div class="form-group col-md-2">
                 <label for="birthday">วันเกิด</label>
-                <input type="text" class="form-control text-center" id="birthday" placeholder="<?php echo $birthday; ?>">
+                <input type="text" class="form-control text-center" id="birthday" name="birthday" value="<?php echo $birthday; ?>">
               </div>
               <div class="form-group col-md-2">
                 <label for="salary">เงินเดือน</label>
@@ -141,17 +169,17 @@ if (!$_SESSION["UserLevel"]) {
                   while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                   ?>
                     <option value="<?php echo $row['sid']; ?>" <?php if ($sid == $row['sid']) {
-                                                                echo "selected";
-                                                              } ?>>
+                                                                  echo "selected";
+                                                                } ?>>
                       <?php echo ($row['s_name']) . " - " . ($row['s_money']); ?>
                     </option>
                   <?php }
                   ?>
                 </select>
               </div>
-              <div class="form-group col-md-10">
+              <div class="form-group col-md-7">
                 <label for="position">ตำแหน่ง</label>
-                <select id="positon" name="position" class="form-control">
+                <select id="position" name="position" class="form-control">
                   <!-- ดึงข้อมูลตำแหน่ง -->
                   <?php
                   $result = $con->prepare("SELECT * FROM db_position ORDER BY pid ASC");
@@ -160,13 +188,13 @@ if (!$_SESSION["UserLevel"]) {
                   while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                   ?>
                     <option value="<?php echo $row['pid']; ?>" <?php if ($pid == $row['pid']) {
-                                                                echo "selected";
-                                                              } ?>>
+                                                                  echo "selected";
+                                                                } ?>>
                       <?php echo ($row['pid']) . " - " . ($row['p_fname']); ?>
                     </option>
                   <?php }
                   ?>
-                </select>              </div>
+                </select> </div>
             </div>
             <button type="submit" class="btn btn-primary">ยืนยัน</button>
             <button type="reset" class="btn btn-danger">Reset</button>
@@ -179,6 +207,14 @@ if (!$_SESSION["UserLevel"]) {
       <script src="node_modules\popper.js\dist\popper.min.js"></script>
       <script src="node_modules\bootstrap\dist\js\bootstrap.min.js"></script>
 
+      <!-- Show File Name -->
+      <script>
+        $(".custom-file-input").on("change", function() {
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+      </script>
+
       <!-- remove -->
       <script language="javascript">
         function removedata() {
@@ -188,8 +224,24 @@ if (!$_SESSION["UserLevel"]) {
         }
       </script>
 
+      <!-- เช็คเลข 13 หลัก -->
+      <script language="javascript">
+        function checkForm() {
+          var v1 = document.getElementById('eid').value;
+          if (v1.length < 1) {
+            alert("กรอก เลขบัตรประชาชน :");
+            document.getElementById('eid').focus();
+            return false;
+          } else {
+            return true;
+          }
+        }
+      </script>
+
     </body>
 
     </html>
 <?php }
-} ?>
+}
+require 'mysql/uncon.php';
+?>

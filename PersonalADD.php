@@ -68,7 +68,7 @@ if (!$_SESSION["UserLevel"]) {
     <?php require 'mysql/connect.php'; ?>
     <div class="container">
       <h1 class="text-center">เพิ่มข้อมูลกำลังพล</h1><br>
-      <form action="action_insert.php" method="POST" enctype="multipart/form-data">
+      <form action="action_insert.php" method="POST" enctype="multipart/form-data" target="_self" onSubmit="return checkForm();">
         <div class="form-row">
           <div class="form-group col-md-2">
             <label for="rank">ยศ</label>
@@ -76,12 +76,12 @@ if (!$_SESSION["UserLevel"]) {
               <option selected>เลือกยศ</option>
               <!-- ดึงข้อมูลตำแหน่ง -->
               <?php
-                                                              $result = $con->prepare("SELECT * FROM rank ORDER BY rid ASC");
-                                                              $result->execute();
+              $result = $con->prepare("SELECT * FROM rank ORDER BY rid ASC");
+              $result->execute();
 
-                                                              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                                                                echo "<option value=" . $row['rid'] . ">" . $row['r_aname'] . "</option>";
-                                                              }
+              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=" . $row['rid'] . ">" . $row['r_aname'] . "</option>";
+              }
               ?>
             </select>
           </div>
@@ -111,12 +111,12 @@ if (!$_SESSION["UserLevel"]) {
               <option selected>เลือกขั้นเงินเดือน</option>
               <!-- ดึงข้อมูลตำแหน่ง -->
               <?php
-                                                              $result = $con->prepare("SELECT * FROM salary ORDER BY sid ASC");
-                                                              $result->execute();
+              $result = $con->prepare("SELECT * FROM salary ORDER BY sid ASC");
+              $result->execute();
 
-                                                              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                                                                echo "<option value=" . $row['sid'] . ">" . $row['s_name'] . " " . $row['s_money'] . "</option>";
-                                                              }
+              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=" . $row['sid'] . ">" . $row['s_name'] . " " . $row['s_money'] . "</option>";
+              }
               ?>
             </select>
           </div>
@@ -149,12 +149,12 @@ if (!$_SESSION["UserLevel"]) {
               <option selected>เลือกตำแหน่ง</option>
               <!-- ดึงข้อมูลตำแหน่ง -->
               <?php
-                                                              $result = $con->prepare("SELECT * FROM db_position ORDER BY pid ASC");
-                                                              $result->execute();
+              $result = $con->prepare("SELECT * FROM db_position ORDER BY pid ASC");
+              $result->execute();
 
-                                                              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                                                                echo "<option value=" . $row['pid'] . ">" . $row['pid'] . " " . $row['p_aname'] . "</option>";
-                                                              }
+              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=" . $row['pid'] . ">" . $row['pid'] . " " . $row['p_aname'] . "</option>";
+              }
               ?>
             </select>
           </div>
@@ -181,6 +181,20 @@ if (!$_SESSION["UserLevel"]) {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
       });
+    </script>
+
+    <!-- เช็คเลข 13 หลัก -->
+    <script language="javascript">
+      function checkForm() {
+        var v1 = document.getElementById('eid').value;
+        if (v1.length < 1) {
+          alert("กรอก เลขบัตรประชาชน :");
+          document.getElementById('eid').focus();
+          return false;
+        } else {
+          return true;
+        }
+      }
     </script>
 
   </body>

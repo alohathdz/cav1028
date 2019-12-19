@@ -5,6 +5,7 @@ $result->execute();
 $record=$result->fetch(PDO::FETCH_ASSOC);
 $eid=$record['eid']; /* เลขบัตรประชาชน */
 $rank=$record['r_aname']; // ยศ
+$rid=$record['e_rank']; // รหัสยศ
 $firstname=$record['e_firstname']; /* ชื่อ */
 $lastname=$record['e_lastname']; /* สกุล */
 $idarmy=$record['e_idarmy']; /* เลข 10 หลัก ทหาร */

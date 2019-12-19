@@ -22,7 +22,7 @@
 	?>
 
 	<script language="javascript">
-	var v1 = <?php echo($v1);?>;
+	var v1 = <?php echo $v1; ?>;
 		if (v1==1) {
 			alert("ลบข้อมูลเรียบร้อย");
 			window.location.replace("index.php");
