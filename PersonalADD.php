@@ -135,11 +135,11 @@ if (!$_SESSION["UserLevel"]) {
             <label for="origin">กำเนิด</label>
             <select class="form-control" id="origin" name="origin">
               <option selected>เลือกกำเนิด</option>
-              <option value="นร.">นักเรียนนายร้อย</option>
-              <option value="นพ.">นักเรียนแพทย์</option>
-              <option value="นป.">นายทหารประทวนเลื่อนฐานะ</option>
-              <option value="นนส.">นักเรียนนายสิบ</option>
-              <option value="นชท.">นักเรียนช่างฝีมือทหาร</option>
+              <option value="นร.">นร.</option>
+              <option value="นพ.">นพท.</option>
+              <option value="นป.">นป.</option>
+              <option value="นนส.">นนส.</option>
+              <option value="นชท.">นชท.</option>
               <option value="กองหนุน">กองหนุน</option>
             </select>
           </div>

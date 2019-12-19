@@ -3,9 +3,12 @@ session_start();
 if (!$_SESSION["UserLevel"]) {
   header("location: login.php");
 } else {
-  if (empty($_GET["eid"])) {
+  if (empty($_GET['eid'])) {
     header("location: list.php");
   } else {
+    $eid = $_GET['eid'];
+    require 'action_detail.php';
+    $ephoto = "photos/" . $eid . ".jpg"; /* รูปภาพ */
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -29,7 +32,7 @@ if (!$_SESSION["UserLevel"]) {
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="index.php">หน้าหลัก <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -56,7 +59,7 @@ if (!$_SESSION["UserLevel"]) {
               <img src="<?php echo $_SESSION["Photo"]; ?>" class="rounded-circle" width="30" height="30" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="profile.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
+              <a class="dropdown-item" href="emp_detail.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
               <a class="dropdown-item" href="#">เปลี่ยนรหัสผ่าน</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="logout.php">ออกจากระบบ</a>
@@ -66,13 +69,6 @@ if (!$_SESSION["UserLevel"]) {
       </div>
     </nav>
     
-    <!-- เรียกฐานข้อมูล -->
-    <?php
-                                                                $eid = $_GET['eid'];
-                                                                require 'action_detail.php';
-                                                                $ephoto = "photos/" . $eid . ".jpg"; /* รูปภาพ */
-    ?>
-
     <!-- Card -->
     <div class="card text-center">
       <div class="card-body">
@@ -103,11 +99,11 @@ if (!$_SESSION["UserLevel"]) {
             <div class="form-group col-md-1">
               <label for="origin">กำเนิด</label>
               <select class="form-control" id="origin" name="origin">
-              <option value="นร." <?php if($origin=="นร.") { echo "selected"; } ?>>นักเรียนนายร้อย</option>
-              <option value="นพ." <?php if($origin=="นพ.") { echo "selected"; } ?>>นักเรียนแพทย์</option>
-              <option value="นป." <?php if($origin=="นป.") { echo "selected"; } ?>>นายทหารประทวนเลื่อนฐานะ</option>
-              <option value="นนส." <?php if($origin=="นนส.") { echo "selected"; } ?>>นักเรียนนายสิบ</option>
-              <option value="นชท." <?php if($origin=="นชท.") { echo "selected"; } ?>>นักเรียนช่างฝีมือทหาร</option>
+              <option value="นร." <?php if($origin=="นร.") { echo "selected"; } ?>>นร.</option>
+              <option value="นพ." <?php if($origin=="นพ.") { echo "selected"; } ?>>นพท.</option>
+              <option value="นป." <?php if($origin=="นป.") { echo "selected"; } ?>>นป.</option>
+              <option value="นนส." <?php if($origin=="นนส.") { echo "selected"; } ?>>นนส.</option>
+              <option value="นชท." <?php if($origin=="นชท.") { echo "selected"; } ?>>นชท.</option>
               <option value="กองหนุน" <?php if($origin=="กองหนุน") { echo "selected"; } ?>>กองหนุน</option>
             </select>
                </div>

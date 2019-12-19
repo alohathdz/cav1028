@@ -3,6 +3,13 @@ session_start();
 if (!$_SESSION["UserLevel"]) {
   header("location: login.php");
 } else {
+  if (empty($_GET['eid'])) {
+    header("location: list.php");
+  } else {
+    $eid = $_GET['eid'];
+    require 'action_detail.php';
+    require 'function.php';
+    $ephoto = "photos/" . $eid . ".jpg"; /* รูปภาพ */
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -28,6 +35,9 @@ if (!$_SESSION["UserLevel"]) {
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="index.php">หน้าหลัก <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="list.php">รายชื่อกำลังพล</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">ทำเนียบกองพัน</a>
@@ -60,13 +70,6 @@ if (!$_SESSION["UserLevel"]) {
       </div>
     </nav>
 
-    <!-- เรียกฐานข้อมูล -->
-    <?php
-                                                                $eid = $_GET['eid'];
-                                                                require 'action_detail.php';
-                                                                $ephoto = "photos/" . $eid . ".jpg"; /* รูปภาพ */
-    ?>
-
     <!-- Card -->
     <div class="card text-center">
       <div class="card-body">
@@ -80,7 +83,7 @@ if (!$_SESSION["UserLevel"]) {
             </div>
             <div class="form-group col-md-2">
               <label for="firstname">หมายเลขประจำตัวประชาชน</label>
-              <input type="text" class="form-control text-center" id="eid" placeholder="<?php echo $eid; ?>" readonly>
+              <input type="text" class="form-control text-center" id="eid" placeholder="<?php echo FnID($eid); ?>" readonly>
             </div>
             <div class="form-group col-md-2">
               <label for="firstname">หมายเลขข้าราชการ</label>
@@ -107,7 +110,7 @@ if (!$_SESSION["UserLevel"]) {
               <input type="text" class="form-control text-center" id="position" placeholder="<?php echo $position; ?>" readonly>
             </div>
           </div>
-          <a href="emp_form.php?eid=<?php echo $eid; ?>" class="btn btn-primary">Edit</a>
+          <a href="edit.php?eid=<?php echo $eid; ?>" class="btn btn-primary">Edit</a>
           <a href="javascript:removedata();" class="btn btn-danger">Remove</a>
         </form>
       </div>
@@ -130,4 +133,4 @@ if (!$_SESSION["UserLevel"]) {
   </body>
 
   </html>
-<?php } ?>
+<?php } } ?>

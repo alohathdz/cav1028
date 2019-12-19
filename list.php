@@ -96,14 +96,19 @@ if (!$_SESSION["UserLevel"]) {
                 <td class="text-center">' . $record['r_aname'] . '</td>
                 <td>' . $record['e_firstname'] . '</td>
                 <td>' . $record['e_lastname'] . '</td>
-                <td class="text-center">' . $record['eid'] . '</td>
+                <td class="text-center">' . FnID($record['eid']) . '</td>
                 <td class="text-center">' . $record['e_idarmy'] . '</td>
                 <td class="text-center">
-                <a href="profile.php?eid=' . $record['eid'] . '" class="btn btn-primary btn-sm">View</a>
+                <a href="profile.php?eid=' . $record['eid'] . '" class="btn btn-primary btn-sm">View</a>';
+
+                if ($_SESSION["UserLevel"]=="admin") {
+                echo '
                 <a href="edit.php?eid=' . $record['eid'] . '" class="btn btn-secondary btn-sm">Edit</a>
                 <a href="javascript:removedata(' . $record['eid'] . ')" class="btn btn-danger btn-sm">Delete</a>  
-                </td>
-                </tr>';
+                </td>';
+              }
+
+                echo '</tr>';
                                                                 } ?>
         </tbody>
       </table>
