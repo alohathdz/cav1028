@@ -25,9 +25,10 @@
 
 	require("mysql/connect.php");
 	$result = $con->prepare("INSERT INTO employee(e_rank,e_firstname,e_lastname,birthday,eid,e_idarmy,e_salary,e_corps,e_origin,e_pid,e_level) VALUES ('$rank','$firstname','$lastname','$birthday','$eid','$idarmy','$salary','$corps','$origin','$position','$level')");
-
+	$sql = $con->prepare("UPDATE db_position SET p_eid='$eid' WHERE pid='$position'");
 	if ($result->execute()) {
 		$v1 = 1;
+		$sql->execute();
 		if (!move_uploaded_file($_FILES['ephoto']['tmp_name'], $photo)) {
 			copy($nullphoto, $photo);
 		}

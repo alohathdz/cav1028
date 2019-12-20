@@ -80,6 +80,7 @@ if (!$_SESSION["UserLevel"]) {
               <label class="custom-file-label text-left" for="ephoto">เลือกรูปโปรไฟล์</label>
             </div>
             <input name="oid" type="hidden" id="oid" value="<?php echo $eid; ?>">
+            <input name="opid" type="hidden" id="opid" value="<?php echo $pid; ?>">
             <div class="form-row">
               <div class="form-group col-md-1">
                 <label for="rank">ยศ</label>
