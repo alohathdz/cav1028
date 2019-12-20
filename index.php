@@ -3,7 +3,16 @@ session_start();
 if (!$_SESSION["UserLevel"]) {
   header("location: login.php");
 } else {
-  ?>
+  if (isset($_SESSION["timeout"]) && (time() - $_SESSION["timeout"] > 60)) {
+    // last request was more than 30 minutes ago
+    //session_unset();     // unset $_SESSION variable for the run-time 
+    //session_destroy();   // destroy session data in storage
+    //https://www.thaicreate.com/community/php-mysql-login-duplicate-session.html
+    header("location: logout.php");
+} else {
+  $_SESSION["timeout"] = time(); // update last activity time stamp
+}
+?>
   <!DOCTYPE html>
   <html lang="en">
 
@@ -50,7 +59,7 @@ if (!$_SESSION["UserLevel"]) {
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo 'photos/'.$_SESSION['UserID'].'.jpg'; ?>" class="rounded-circle" width="30" height="30" alt="">
+              <img src="<?php echo $_SESSION['Photo']; ?>" class="rounded-circle" width="30" height="30" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="profile.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
@@ -81,7 +90,7 @@ if (!$_SESSION["UserLevel"]) {
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="fullname">ยศ ชื่อ - สกุล</label>
-              <input type="text" class="form-control text-center" id="fullname" placeholder="<?php echo $_SESSION["UserRank"]." ".$_SESSION["User"]; ?>" readonly>
+              <input type="text" class="form-control text-center" id="fullname" placeholder="<?php echo $_SESSION["UserRank"] . " " . $_SESSION["User"]; ?>" readonly>
             </div>
             <div class="form-group col-md-2">
               <label for="firstname">หมายเลขประจำตัวประชาชน</label>
@@ -112,7 +121,7 @@ if (!$_SESSION["UserLevel"]) {
               <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserPosition"]; ?>" readonly>
             </div>
           </div>
-          <a href="emp_form.php?eid=<?php echo $_SESSION["UserID"]; ?>" class="btn btn-primary">Edit</a>
+          <a href="edit.php?eid=<?php echo $_SESSION["UserID"]; ?>" class="btn btn-primary">Edit</a>
         </form>
       </div>
     </div>

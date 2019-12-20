@@ -50,7 +50,7 @@ if (!$_SESSION["UserLevel"]) {
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo 'photos/'.$_SESSION['UserID'].'.jpg'; ?>" class="rounded-circle" width="30" height="30" alt="">
+            <img src="<?php echo $_SESSION['Photo']; ?>" class="rounded-circle" width="30" height="30" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="profile.php?eid=<?php echo $_SESSION["UserID"]; ?>">ข้อมูลส่วนตัว</a>
