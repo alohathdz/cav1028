@@ -92,26 +92,26 @@ if ($_SESSION["UserLevel"] != "admin") {
           <!-- วน loop ตำแหน่ง -->
           <?php
           $i = 0;
-          while ($record = $result->fetch(PDO::FETCH_ASSOC)) {
+          while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $i++;
-            if ($record['p_status'] == "ปิด") {
+            if ($row['p_status'] == "ปิด") {
               echo '<tr>
 <td bgcolor="#e0e0eb" class="text-center">' . $i . '</td>
-<td bgcolor="#e0e0eb" width="35%">' . $record['p_aname'] . "<br>( " . $record['p_fname'] . " )<br>" . $record['pid'] . '</td>
-<td bgcolor="#e0e0eb" class="text-center">' . $record['p_expert'] . '</td>
-<td bgcolor="#e0e0eb" class="text-center">' . $record['p_rate'] . '</td>
-<td bgcolor="#e0e0eb" class="text-center">' . $record['p_corps'] . '</td>
-<td bgcolor="#e0e0eb" class="text-center">' . $record['r_aname'] . " " . $record['e_firstname'] . " " . $record['e_lastname'] . "<br>" . $record['e_idarmy'] . "<br>" . FnID($record['p_eid']) . '</td>
+<td bgcolor="#e0e0eb" width="35%">' . $row['p_aname'] . "<br>( " . $row['p_fname'] . " )<br>" . $row['pid'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $row['p_expert'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $row['p_rate'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $row['p_corps'] . '</td>
+<td bgcolor="#e0e0eb" class="text-center">' . $row['r_aname'] . " " . $row['e_firstname'] . " " . $row['e_lastname'] . "<br>" . $row['e_idarmy'] . "<br>" . FnID($row['p_eid']) . '</td>
 <td bgcolor="#e0e0eb" class="text-center">เพิ่ม / ลบ</td>
 </tr>';
             } else {
               echo '<tr>
 <td class="text-center">' . $i . '</td>
-<td width="35%">' . $record['p_aname'] . "<br>( " . $record['p_fname'] . " )<br>" . $record['pid'] . '</td>
-<td class="text-center">' . $record['p_expert'] . '</td>
-<td class="text-center">' . $record['p_rate'] . '</td>
-<td class="text-center">' . $record['p_corps'] . '</td>
-<td class="text-center">' . $record['r_aname'] . " " . $record['e_firstname'] . " " . $record['e_lastname'] . "<br>" . $record['e_idarmy'] . "<br>" . FnID($record['p_eid']) . '</td>
+<td width="35%">' . $row['p_aname'] . "<br>( " . $row['p_fname'] . " )<br>" . $row['pid'] . '</td>
+<td class="text-center">' . $row['p_expert'] . '</td>
+<td class="text-center">' . $row['p_rate'] . '</td>
+<td class="text-center">' . $row['p_corps'] . '</td>
+<td class="text-center">' . $row['r_aname'] . " " . $row['e_firstname'] . " " . $row['e_lastname'] . "<br>" . $row['e_idarmy'] . "<br>" . FnID($row['p_eid']) . '</td>
 <td class="text-center">
 <a href="#" class="btn btn-primary btn-sm">เพิ่ม</a>
 <a href="#" class="btn btn-danger btn-sm">ลบ</a>

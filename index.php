@@ -3,15 +3,10 @@ session_start();
 if (!$_SESSION["UserLevel"]) {
   header("location: login.php");
 } else {
-  if (isset($_SESSION["timeout"]) && (time() - $_SESSION["timeout"] > 60)) {
-    // last request was more than 30 minutes ago
-    //session_unset();     // unset $_SESSION variable for the run-time 
-    //session_destroy();   // destroy session data in storage
-    //https://www.thaicreate.com/community/php-mysql-login-duplicate-session.html
-    header("location: logout.php");
-} else {
-  $_SESSION["timeout"] = time(); // update last activity time stamp
-}
+  if (isset($_SESSION["timeout"]) && (time() - $_SESSION["timeout"] > 1800)) {
+    session_destroy();   // ทำลาย session
+  }
+  $_SESSION["timeout"] = time();
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -81,49 +76,30 @@ if (!$_SESSION["UserLevel"]) {
     </div>
 
     <!-- Card -->
-    <div class="card text-center">
-      <div class="card-body">
-        <h5 class="card-title">ข้อมูลส่วนบุคคล</h5>
-        <img src="<?php echo $_SESSION["Photo"]; ?>" class="img-thumbnail" width="200" height="200" alt="">
-        <br><br>
-        <form>
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label for="fullname">ยศ ชื่อ - สกุล</label>
-              <input type="text" class="form-control text-center" id="fullname" placeholder="<?php echo $_SESSION["UserRank"] . " " . $_SESSION["User"]; ?>" readonly>
-            </div>
-            <div class="form-group col-md-2">
-              <label for="firstname">หมายเลขประจำตัวประชาชน</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserID"]; ?>" readonly>
-            </div>
-            <div class="form-group col-md-2">
-              <label for="firstname">หมายเลขข้าราชการ</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserIDarmy"]; ?>" readonly>
-            </div>
-            <div class="form-group col-md-1">
-              <label for="firstname">เหล่า</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserCorps"]; ?>" readonly>
-            </div>
-            <div class="form-group col-md-1">
-              <label for="firstname">กำเนิด</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserOrigin"]; ?>" readonly>
-            </div>
-            <div class="form-group col-md-2">
-              <label for="firstname">วันเกิด</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserBirthday"]; ?>" readonly>
-            </div>
-            <div class="form-group col-md-2">
-              <label for="firstname">เงินเดือน</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserSalary"]; ?>" readonly>
-            </div>
-            <div class="form-group col-md-10">
-              <label for="firstname">ตำแหน่ง</label>
-              <input type="text" class="form-control text-center" id="firstname" placeholder="<?php echo $_SESSION["UserPosition"]; ?>" readonly>
-            </div>
+    <div class="container">
+      <form class="form-row">
+        <a href="list.php" class="card text-white bg-primary mx-auto mb-3" style="max-width: 18rem;">
+          <div class="card-header">Personal</div>
+          <div class="card-body">
+            <h5 class="card-title">รายชื่อกำลังพล</h5>
+            <p class="card-text">กองพันทหารม้าที่ 28 กองพลทหารม้าที่ 1</p>
           </div>
-          <a href="edit.php?eid=<?php echo $_SESSION["UserID"]; ?>" class="btn btn-primary">Edit</a>
-        </form>
-      </div>
+        </a>
+        <a href="department.php" class="card text-white bg-secondary mx-auto mb-3" style="max-width: 18rem;">
+          <div class="card-header">Department</div>
+          <div class="card-body">
+            <h5 class="card-title">ทำเนียบหน่วย</h5>
+            <p class="card-text">กองพันทหารม้าที่ 28 กองพลทหารม้าที่ 1</p>
+          </div>
+        </a>
+        <a href="personaladd.php" class="card text-white bg-success mx-auto mb-3" style="max-width: 18rem;">
+          <div class="card-header">Add Personal</div>
+          <div class="card-body">
+            <h5 class="card-title">เพิ่มข้อมูลกำลังพล</h5>
+            <p class="card-text">กองพันทหารม้าที่ 28 กองพลทหารม้าที่ 1</p>
+          </div>
+        </a>
+      </form>
     </div>
 
     <script src="node_modules\jquery\dist\jquery.min.js"></script>

@@ -90,22 +90,22 @@ if (!$_SESSION["UserLevel"]) {
           <?php
                                                                 require 'function.php';
                                                                 $i = 0;
-                                                                while ($record = $result->fetch(PDO::FETCH_ASSOC)) {
+                                                                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                                                                   $i++;
                                                                   echo '<tr>
                 <td class="text-center">' . $i . '</td>
-                <td class="text-center">' . $record['r_aname'] . '</td>
-                <td>' . $record['e_firstname'] . '</td>
-                <td>' . $record['e_lastname'] . '</td>
-                <td class="text-center">' . FnID($record['eid']) . '</td>
-                <td class="text-center">' . $record['e_idarmy'] . '</td>
+                <td class="text-center">' . $row['r_aname'] . '</td>
+                <td>' . $row['e_firstname'] . '</td>
+                <td>' . $row['e_lastname'] . '</td>
+                <td class="text-center">' . FnID($row['eid']) . '</td>
+                <td class="text-center">' . $row['e_idarmy'] . '</td>
                 <td class="text-center">
-                <a href="profile.php?eid=' . $record['eid'] . '" class="btn btn-primary btn-sm">View</a>';
+                <a href="profile.php?eid=' . $row['eid'] . '" class="btn btn-primary btn-sm">View</a>';
 
                 if ($_SESSION["UserLevel"]=="admin") {
                 echo '
-                <a href="edit.php?eid=' . $record['eid'] . '" class="btn btn-secondary btn-sm">Edit</a>
-                <a href="javascript:removedata(' . $record['eid'] . ')" class="btn btn-danger btn-sm">Delete</a>  
+                <a href="edit.php?eid=' . $row['eid'] . '" class="btn btn-secondary btn-sm">Edit</a>
+                <a href="javascript:removedata(' . $row['eid'] . ')" class="btn btn-danger btn-sm">Delete</a>  
                 </td>';
               }
 
