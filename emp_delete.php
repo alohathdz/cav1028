@@ -25,7 +25,7 @@
 	var v1 = <?php echo $v1; ?>;
 		if (v1==1) {
 			alert("ลบข้อมูลเรียบร้อย");
-			window.location.replace("index.php");
+			window.location.replace("list.php");
 		} else {
 			alert("ลบข้อมูลล้มเหลว กรุณาทำรายการใหม่");
 			window.history.back();

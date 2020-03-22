@@ -37,7 +37,7 @@
 	var v1 = <?php echo($v1);?>;
 		if (v1==1) {
 			alert("บันทึกข้อมูลเรียบร้อย");
-			window.location.replace("emp_detail.php?eid=<?php echo($eid);?>");
+			window.location.replace("profile.php?eid=<?php echo($eid);?>");
 		} else {
 			alert("บันทึกข้อมูลล้มเหลว กรุณาทำรายการใหม่");
 			window.history.back();
