@@ -9,7 +9,7 @@
 <body>
 
 	<?php
-	$sql = "SELECT em.*,db_po.p_fname,ra.r_aname FROM employee em left join db_position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) ORDER BY e_rank ASC";
+	$sql = "SELECT em.*,db_po.p_fname,ra.r_aname FROM employee em left join position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) ORDER BY e_rank ASC";
 	if (isset($_GET['keyword'])) {
 		$keyword = $_GET['keyword'];
 		$sql .= "WHERE eid='$keyword' OR e_firstname LIKE '%$keyword%'";

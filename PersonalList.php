@@ -221,7 +221,7 @@ if (!$_SESSION["UserID"]) {
 
     <!-- เชื่อต่อฐานข้อมูล -->
     <?php
-      $sql = "SELECT em.*,db_po.p_fname,ra.r_aname FROM employee em left join db_position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) ORDER BY em.e_rank ASC";
+      $sql = "SELECT em.*,db_po.p_fname,ra.r_aname FROM employee em left join position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) ORDER BY em.e_rank ASC";
       require('mysql/connect.php');
       $result = $con->prepare($sql);
       $result->execute();

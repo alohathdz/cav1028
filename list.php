@@ -23,7 +23,7 @@ if (!$_SESSION["UserLevel"]) {
     <!-- เชื่อมฐานข้อมูล -->
     <?php
                                                                 require 'mysql/connect.php';
-                                                                $result = $con->prepare("SELECT em.*,db_po.p_aname,ra.r_aname,salary.s_name FROM employee em left join db_position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) LEFT JOIN salary ON(em.e_salary = salary.s_name) ORDER BY em.e_rank ASC");
+                                                                $result = $con->prepare("SELECT em.*,db_po.p_aname,ra.r_aname,salary.s_name FROM employee em left join position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) LEFT JOIN salary ON(em.e_salary = salary.s_name) ORDER BY em.e_rank ASC");
                                                                 $result->execute();
     ?>
 

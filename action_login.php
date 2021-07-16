@@ -8,7 +8,7 @@ if(isset($_POST['Username'])) {
     $Password = $_POST['Password'];
 
     // Query SQL
-    $result = $con->prepare("SELECT em.*,db_po.p_fname,ra.r_fname,sa.s_money,sa.s_name FROM employee em left join db_position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) left join salary sa ON(em.e_salary = sa.sid) WHERE eid='$Username' AND e_idarmy='$Password'");
+    $result = $con->prepare("SELECT em.*,db_po.p_fname,ra.r_fname,sa.s_money,sa.s_name FROM employee em left join position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) left join salary sa ON(em.e_salary = sa.sid) WHERE eid='$Username' AND e_idarmy='$Password'");
     $result->execute();
     
     // ดึงข้อมูล SQL

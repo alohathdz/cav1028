@@ -10,7 +10,7 @@
 	$eid=$_GET['eid'];
   //	require("emp_select.php");
   $ephoto="photos/".$eid.".jpg"; /* รูปภาพ */
-  $sql="SELECT em.*,db_po.p_fname,ra.r_aname,sa.s_money FROM employee em left join db_position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) left join salary sa ON(em.e_salary = sa.s_name) WHERE eid='$eid'";
+  $sql="SELECT em.*,db_po.p_fname,ra.r_aname,sa.s_money FROM employee em left join position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) left join salary sa ON(em.e_salary = sa.s_name) WHERE eid='$eid'";
   require 'mysql/connect.php';
   $result=$con->prepare($sql);
   $result->execute();

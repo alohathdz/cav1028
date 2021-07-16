@@ -24,7 +24,7 @@ if ($_SESSION["UserLevel"] != "admin") {
     <?php
     require('mysql/connect.php');
     require 'function.php';
-    $result = $con->prepare("SELECT * FROM db_position left join employee ON(db_position.p_eid = employee.eid) left join rank ON(employee.e_rank = rank.rid) ORDER BY db_position.pid ASC");
+    $result = $con->prepare("SELECT * FROM position left join employee ON(position.p_eid = employee.eid) left join rank ON(employee.e_rank = rank.rid) ORDER BY position.pid ASC");
     $result->execute();
     ?>
 

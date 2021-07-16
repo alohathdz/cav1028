@@ -1,6 +1,6 @@
 <?php
 require("mysql/connect.php");
-$result=$con->prepare("SELECT em.*,db_po.p_fname,ra.r_aname,sa.* FROM employee em left join db_position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) left join salary sa ON(em.e_salary = sa.sid) WHERE eid='$eid'");
+$result=$con->prepare("SELECT em.*,db_po.p_fname,ra.r_aname,sa.* FROM employee em left join position db_po ON(em.e_pid = db_po.pid) left join rank ra ON(em.e_rank = ra.rid) left join salary sa ON(em.e_salary = sa.sid) WHERE eid='$eid'");
 $result->execute();
 $row=$result->fetch(PDO::FETCH_ASSOC);
 $eid=$row['eid']; /* เลขบัตรประชาชน */

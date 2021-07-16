@@ -222,7 +222,7 @@ if (!$_SESSION["UserID"]) {
 
       <!-- เชื่อมต่อฐานข้อมูล -->
       <?php
-        $sql = "SELECT * FROM db_position left join employee ON(db_position.p_eid = employee.eid) left join rank ON(employee.e_rank = rank.rid) ORDER BY db_position.pid ASC";
+        $sql = "SELECT * FROM position left join employee ON(position.p_eid = employee.eid) left join rank ON(employee.e_rank = rank.rid) ORDER BY position.pid ASC";
         require('mysql/connect.php');
         $result = $con->prepare($sql);
         $result->execute();

@@ -183,7 +183,7 @@ if (!$_SESSION["UserLevel"]) {
                 <select id="position" name="position" class="form-control">
                   <!-- ดึงข้อมูลตำแหน่ง -->
                   <?php
-                  $result = $con->prepare("SELECT * FROM db_position ORDER BY pid ASC");
+                  $result = $con->prepare("SELECT * FROM position ORDER BY pid ASC");
                   $result->execute();
 
                   while ($row = $result->fetch(PDO::FETCH_ASSOC)) {

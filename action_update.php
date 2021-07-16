@@ -25,8 +25,8 @@
 
 	require 'mysql/connect.php';
 	$result = $con->prepare("UPDATE employee SET eid='$eid',e_rank='$rank',e_firstname='$firstname',e_lastname='$lastname',e_idarmy='$idarmy',e_corps='$corps',e_origin='$origin',birthday='$birthday',e_pid='$position',e_salary='$salary' WHERE eid='$oid'");
-	$delpid = $con->prepare("UPDATE db_position SET p_eid=null WHERE pid='$opid'");
-	$addpid = $con->prepare("UPDATE db_position SET p_eid='$eid' WHERE pid='$position'");
+	$delpid = $con->prepare("UPDATE position SET p_eid=null WHERE pid='$opid'");
+	$addpid = $con->prepare("UPDATE position SET p_eid='$eid' WHERE pid='$position'");
 
 	if ($result->execute()) {
 		$v1 = 1;
